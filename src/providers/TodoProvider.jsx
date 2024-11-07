@@ -7,6 +7,8 @@ import {
   removeTodo,
 } from "../services/todoService";
 import { useAuth } from "./AuthProvider";
+import { db } from "../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const TodoContext = createContext(null);
 
@@ -91,6 +93,18 @@ function TodoProvider({ children }) {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "todo"), (snapshot) => {
+      const todosList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodos(todosList);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const todoValue = {
     todos,

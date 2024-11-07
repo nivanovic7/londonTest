@@ -20,7 +20,6 @@ const Signup = () => {
             <h1> Signup </h1>
             <form>
               <div>
-                <label htmlFor="email-address">Email address</label>
                 <input
                   type="email"
                   label="Email address"
@@ -32,7 +31,6 @@ const Signup = () => {
               </div>
 
               <div>
-                <label htmlFor="password">Password</label>
                 <input
                   type="password"
                   label="Create password"

@@ -21,7 +21,6 @@ const Login = () => {
 
             <form>
               <div>
-                <label htmlFor="email-address">Email address</label>
                 <input
                   id="email-address"
                   name="email"
@@ -33,7 +32,6 @@ const Login = () => {
               </div>
 
               <div>
-                <label htmlFor="password">Password</label>
                 <input
                   id="password"
                   name="password"
