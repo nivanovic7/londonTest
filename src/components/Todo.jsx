@@ -5,7 +5,6 @@ import TodoDetails from "./TodoDetails";
 
 function Todo({ todo }) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(todo);
   return (
     <div className={`todo-${todo.priority} todo`}>
       <TodoHeader setIsOpen={setIsOpen} todo={todo} isOpen={isOpen} />

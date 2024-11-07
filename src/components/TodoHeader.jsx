@@ -3,7 +3,6 @@ import { useTodos } from "../providers/TodoProvider";
 function TodoHeader({ todo, setIsOpen, isOpen }) {
   const { deleteTodo } = useTodos();
 
-  console.log(todo);
   return (
     <div className="todo-header">
       <p>
