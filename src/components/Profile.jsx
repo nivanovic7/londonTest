@@ -24,7 +24,7 @@ function Profile() {
 
   return (
     <div>
-      <h1>Profile</h1>
+      <h1>-Profile-</h1>
       <button onClick={() => setIsCreateOpen(!isCreateOpen)}>
         {isCreateOpen ? "Close" : "Create Todo"}
       </button>
