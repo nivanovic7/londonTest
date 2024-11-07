@@ -8,7 +8,7 @@ import {
 } from "../services/todoService";
 import { useAuth } from "./AuthProvider";
 import { db } from "../firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const TodoContext = createContext(null);
 
@@ -53,11 +53,7 @@ function TodoProvider({ children }) {
     try {
       setLoading(true);
       const todos = await fetchTodos(userUid);
-      setTodos(
-        todos.sort((a, b) =>
-          a.createdAt.seconds < b.createdAt.seconds ? 1 : -1
-        )
-      );
+      setTodos(todos);
     } catch (err) {
       console.log("Failed fetching todos");
       console.log(err);
@@ -95,16 +91,27 @@ function TodoProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "todo"), (snapshot) => {
+    if (!user) return;
+    const todosQuery = query(
+      collection(db, "todo"),
+      where("userUid", "==", user.uid)
+    );
+
+    const unsubscribe = onSnapshot(todosQuery, (snapshot) => {
       const todosList = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setTodos(todosList);
+
+      setTodos(
+        todosList.sort((a, b) =>
+          a.createdAt.seconds < b.createdAt.seconds ? 1 : -1
+        )
+      );
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   const todoValue = {
     todos,
