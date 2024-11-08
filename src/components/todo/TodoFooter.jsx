@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTodos } from "../providers/TodoProvider";
+import { useTodos } from "../../providers/TodoProvider";
 
 function TodoFooter({ todo }) {
   const [newNote, setNewNote] = useState("");

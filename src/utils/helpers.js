@@ -1,4 +1,12 @@
 import toast from "react-hot-toast";
+import { sortFunc } from "./config";
+
+export function sortTodos(todos, appliedSort) {
+  if (todos.length < 2) return todos;
+  else {
+    return todos.slice().sort(sortFunc[appliedSort]);
+  }
+}
 
 export function handleFirebaseError(error) {
   const errorCode = error.code;

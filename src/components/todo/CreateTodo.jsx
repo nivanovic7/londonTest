@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useTodos } from "../providers/TodoProvider";
-import { useAuth } from "../providers/AuthProvider";
+import { useTodos } from "../../providers/TodoProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 
 function CreateTodo({ setIsCreateOpen }) {

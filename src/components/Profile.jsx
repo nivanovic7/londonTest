@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import CreateNote from "./CreateTodo";
-import Todo from "./Todo";
-import { sortFunc } from "../utils/config";
+import CreateNote from "./todo/CreateTodo";
+import Todo from "./todo/Todo";
 import { useTodos } from "../providers/TodoProvider";
+import { sortTodos } from "../utils/helpers";
 
 function Profile() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -10,12 +10,7 @@ function Profile() {
   const { todos, setTodos, loading } = useTodos();
 
   useEffect(() => {
-    setTodos((todos) => {
-      if (todos.length < 2) return todos;
-      else {
-        return todos.slice().sort(sortFunc[appliedSort]);
-      }
-    });
+    setTodos((todos) => sortTodos(todos, appliedSort));
   }, [appliedSort, setTodos]);
 
   if (loading) {

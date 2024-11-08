@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const { registerUser } = useAuth();
@@ -9,6 +10,10 @@ const Signup = () => {
 
   function handleRegister(e) {
     e.preventDefault();
+    if (!email || password) {
+      toast.error("email and password are required!");
+      return;
+    }
     registerUser(email, password);
   }
 

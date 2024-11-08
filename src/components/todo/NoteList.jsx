@@ -1,4 +1,4 @@
-import { useTodos } from "../providers/TodoProvider";
+import { useTodos } from "../../providers/TodoProvider";
 
 function NoteList({ notes, todo }) {
   const { deleteNote } = useTodos();

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../providers/AuthProvider";
+import toast from "react-hot-toast";
+import { useAuth } from "../../providers/AuthProvider";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,10 @@ const Login = () => {
 
   const onLogin = (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Email and password are required!");
+      return;
+    }
     loginUser(email, password);
   };
 
