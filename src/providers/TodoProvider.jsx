@@ -8,6 +8,7 @@ import {
 } from "../services/todoService";
 import { useAuth } from "./AuthProvider";
 import { db } from "../firebase";
+import toast from "react-hot-toast";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const TodoContext = createContext(null);
@@ -26,11 +27,10 @@ function TodoProvider({ children }) {
   async function createTodo(title, description, notes, priority, userUid) {
     try {
       setLoading(true);
-      console.log(priority);
       await addTodo(title, description, notes, priority, userUid);
-      console.log("Post created with ID: ");
+      toast.success("Todo created!");
     } catch (error) {
-      console.error("Error adding post: ", error);
+      toast.error(error);
     } finally {
       setLoading(false);
     }
@@ -41,7 +41,7 @@ function TodoProvider({ children }) {
       setLoading(true);
       await createNewNote(newNote, setNewNote, todo);
       setNewNote("");
-      console.log("Note added successfully!");
+      toast.success("Note added!");
     } catch (err) {
       console.log(err);
     } finally {
@@ -66,7 +66,7 @@ function TodoProvider({ children }) {
     try {
       setLoading(true);
       await removeTodo(todoId);
-      console.log("Todo removed succesfully!");
+      toast.success("Todo deleted!");
     } catch (err) {
       console.log(err);
       console.log("Deleting todo failed!");
@@ -81,7 +81,7 @@ function TodoProvider({ children }) {
     try {
       setLoading(true);
       await removeNote(noteId, todo);
-      console.log("Succesfully deleted note");
+      toast.success("Note removed!");
     } catch (err) {
       console.log(err);
       console.log("Error deleting note!");

@@ -9,11 +9,13 @@ import GuardRute from "./components/GuardRute";
 import PersistedLogin from "./components/PersistedLogin";
 import { AuthProvider } from "./providers/AuthProvider";
 import TodoProvider from "./providers/TodoProvider";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div>
       <section>
+        <Toaster />
         <AuthProvider>
           <TodoProvider>
             <Nav />

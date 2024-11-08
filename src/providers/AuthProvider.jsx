@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { createUser, logOutUser, signIn } from "../services/AuthService";
+import toast from "react-hot-toast";
+import { handleFirebaseError } from "../utils/helpers";
 
 const AuthContext = createContext(null);
 
@@ -17,9 +19,9 @@ function AuthProvider({ children }) {
       const res = await createUser(email, password);
       setUser(res.user);
       navigate("/login");
+      toast.success("You registered successfully!");
     } catch (err) {
-      console.log(err);
-      console.log("Register failed!");
+      handleFirebaseError(err);
     } finally {
       setLoading(false);
     }
@@ -31,10 +33,9 @@ function AuthProvider({ children }) {
       const res = await signIn(email, password);
       const user = res.user;
       navigate("/home");
-      console.log(user);
+      toast.success("You logged in successfully!");
     } catch (err) {
-      console.log(err);
-      console.log("Login failed");
+      handleFirebaseError(err);
     } finally {
       setLoading(false);
     }
@@ -44,9 +45,10 @@ function AuthProvider({ children }) {
     setLoading(true);
     try {
       await logOutUser();
+      toast.success("You logged out successfully!");
+      navigate("/login");
     } catch (err) {
-      console.log(err);
-      console.log("Logout failed");
+      handleFirebaseError(err);
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTodos } from "../providers/TodoProvider";
 import { useAuth } from "../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 function CreateTodo({ setIsCreateOpen }) {
   const { createTodo } = useTodos();
@@ -14,14 +15,21 @@ function CreateTodo({ setIsCreateOpen }) {
   const [note, setNote] = useState("");
 
   function addNote() {
-    if (!note) return;
+    if (!note) {
+      toast.error("You cannot add empty note!");
+      return;
+    }
     setNotes((state) => [...state, { note, id: uuidv4() }]);
     setNote("");
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!title || !description) return;
+    if (!title || !description) {
+      toast.error("Title and description are required!");
+      return;
+    }
+
     createTodo(title, description, notes, priority, user.uid);
     setIsCreateOpen(false);
     setTitle("");
